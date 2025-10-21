@@ -1,7 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { MascotasService } from './mascotas.service';
 
-@Controller('registro')
+@Controller('inicio')
 export class MascotasController {
   constructor(private readonly mascotasService: MascotasService) {}
   @Get('')
@@ -9,7 +9,11 @@ export class MascotasController {
     return this.mascotasService.getMascotas();
   }
   @Get(':id')
-  getListarPorId(@Param('id') idMascota: Number) {
+  getListarPorId(@Param('id') idMascota: String) {
     return this.mascotasService.getMacotasId(idMascota);
+  }
+  @Post('registro')
+  postIngresaMascota(@Body() nuevaMascota: any) {
+    return this.mascotasService.postIngresarMascota(nuevaMascota);
   }
 }

@@ -44,12 +44,23 @@ export class MascotasService {
   getMascotas() {
     return this.registroDeMascotas;
   }
-  getMacotasId(id: Number) {
+  getMacotasId(id: String) {
     for (let i = 0; i < this.registroDeMascotas.length; i++) {
       if (this.registroDeMascotas[i].id == id) {
         return this.registroDeMascotas[i];
       }
     }
     return 'No se encontro el paciente';
+  }
+
+  postIngresarMascota(nuevaMascota: any) {
+    if (!nuevaMascota || !nuevaMascota.nombre || !nuevaMascota.duenio) {
+      return 'Se ingresó un valor inválido';
+    }
+    const nuevoId = (this.registroDeMascotas.length + 1).toString();
+    nuevaMascota.id = nuevoId;
+
+    this.registroDeMascotas.push(nuevaMascota);
+    return `Mascota ${nuevaMascota.nombre} registrada con éxito.`;
   }
 }
