@@ -1,9 +1,10 @@
+import { MascotasService } from 'src/mascotas/mascotas.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AdministracionService {
   agendaDeTurnos: any = [];
-  constructor() {
+  constructor(private readonly mascotasService: MascotasService){
     let turno = {
       telefono: '555-1234', //voy a usar el telefono como si fuese el id
       duenio: 'Juan Perez',
@@ -20,8 +21,7 @@ export class AdministracionService {
       hora: '16:30',
     };
     this.agendaDeTurnos.push(turno);
-  }
-
+  };
   getTurnos() {
     return this.agendaDeTurnos;
   }
@@ -31,5 +31,8 @@ export class AdministracionService {
     }
     this.agendaDeTurnos.push(nuevoTurno);
     return `Se agendo el truno de ${nuevoTurno.duenio}`;
+  }
+  getHistorialDeMascota(){
+    if (this.registroDe)
   }
 }

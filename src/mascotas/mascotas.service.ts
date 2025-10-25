@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { AdministracionService } from 'src/administracion/administracion.service';
 
 @Injectable()
 export class MascotasService {
@@ -9,9 +10,9 @@ export class MascotasService {
       nombre: 'Firulais',
       raza: 'caniche toy',
       edad: '3',
-      vacunas: '0',
-      tratamiento: 'antibioticos',
-      diagnostico: 'Infeccion Urinaria',
+      vacunas: [{ fecha: '20-09-15', nombre: 'Rabia' }],
+      tratamientos: [{ fecha: '20-10-26', descripcion: 'Antibióticos' }],
+      diagnostico: [{ fecha: '20-10-25', descripcion: 'Infección urinaria' }],
       duenio: 'Juan Perez',
       telefono: '555-1234',
     };
@@ -21,9 +22,9 @@ export class MascotasService {
       nombre: 'Fauto',
       raza: 'caniche toy',
       edad: '9',
-      vacunas: '4',
-      tratamiento: 'antibioticos',
-      diagnostico: 'Infeccion de piel',
+      vacunas: [{ fecha: '20-09-15', nombre: 'Rabia' }],
+      tratamientos: [{ fecha: '20-10-26', descripcion: 'Antibióticos' }],
+      diagnostico: [{ fecha: '21-10-25', descripcion: 'Infección de piel' }],
       duenio: 'Raul Sanchez',
       telefono: '535-1294',
     };
@@ -33,9 +34,9 @@ export class MascotasService {
       nombre: 'Lola',
       raza: 'Labrador Retriever',
       edad: '2',
-      vacunas: '3',
-      tratamiento: 'ninguno',
-      diagnostico: 'revision anual',
+      vacunas: [{ fecha: '20-09-15', nombre: 'Rabia' }],
+      tratamientos: [{ fecha: '20-10-26', descripcion: 'Ninguno' }],
+      diagnostico: [{ fecha: '20-10-25', descripcion: 'Revision Anual' }],
       duenio: 'Julia Martinez',
       telefono: '555-1354',
     };
