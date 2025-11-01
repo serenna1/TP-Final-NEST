@@ -1,4 +1,3 @@
-# TP-Final-NEST
 
 Veterinaria Pet Link REST API – Guía de Usuario
 
