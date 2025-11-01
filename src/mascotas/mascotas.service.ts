@@ -45,7 +45,7 @@ export class MascotasService {
   getMascotas() {
     return this.registroDeMascotas;
   }
-  getMacotasId(id: String) {
+  getMascotasId(id: String) {
     for (let i = 0; i < this.registroDeMascotas.length; i++) {
       if (this.registroDeMascotas[i].id == id) {
         return this.registroDeMascotas[i];

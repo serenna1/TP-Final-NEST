@@ -10,7 +10,7 @@ export class MascotasController {
   }
   @Get(':id')
   getListarPorId(@Param('id') idMascota: String) {
-    return this.mascotasService.getMacotasId(idMascota);
+    return this.mascotasService.getMascotasId(idMascota);
   }
   @Post('registro')
   postIngresaMascota(@Body() nuevaMascota: any) {
