@@ -23,37 +23,46 @@ export class AdministracionService {
     this.agendaDeTurnos.push(turno);
   }
   getTurnos() {
-    return this.agendaDeTurnos;
+    return { mensaje: 'Listado de turnos', turnos: this.agendaDeTurnos };
   }
   postAgendarTurno(nuevoTurno: any) {
     if (!nuevoTurno || !nuevoTurno.fecha || !nuevoTurno.duenio) {
       return 'Se ingresó un valor inválido';
     }
     this.agendaDeTurnos.push(nuevoTurno);
-    return `Se agendo el truno de ${nuevoTurno.duenio}`;
+    return {
+      mensaje: `Se agendó el turno de ${nuevoTurno.duenio}`,
+      turno: nuevoTurno,
+    };
   }
   getHistorialDeMascota() {
     const mascotas = this.mascotasService.getMascotas();
-    return mascotas.map((m) => ({
-      nombre: m.nombre,
-      duenio: m.duenio,
-      diagnostico: m.diagnostico,
-      vacunas: m.vacunas,
-      tratamientos: m.tratamientos,
-    }));
+    return {
+      mensaje: 'Historial completo de mascotas',
+      mascotas: mascotas.map((m) => ({
+        nombre: m.nombre,
+        duenio: m.duenio,
+        diagnostico: m.diagnostico,
+        vacunas: m.vacunas,
+        tratamientos: m.tratamientos,
+      })),
+    };
   }
   getHistorialPorID(id: String) {
-    const mascota = this.mascotasService.getMacotasId(id);
+    const mascota = this.mascotasService.getMascotasId(id);
     if (!mascota) {
-      return 'No se encontro el paciente';
+      return { mensaje: 'No se encontró la mascota' };
     }
     return {
-      id: mascota.id,
-      nombre: mascota.nombre,
-      duenio: mascota.duenio,
-      diagnosticos: mascota.diagnosticos,
-      vacunas: mascota.vacunas,
-      tratamientos: mascota.tratamientos,
+      mensaje: `Historial de ${mascota.nombre}`,
+      mascota: {
+        id: mascota.id,
+        nombre: mascota.nombre,
+        duenio: mascota.duenio,
+        diagnostico: mascota.diagnostico,
+        vacunas: mascota.vacunas,
+        tratamientos: mascota.tratamientos,
+      },
     };
   }
   postAgregarInforme(id: string, informe: any) {
@@ -64,31 +73,44 @@ export class AdministracionService {
       !informe.vacunas ||
       !informe.tratamientos
     ) {
-      return 'Se ingresó un valor inválido';
+      return { mensaje: 'Se ingreso un valor invalido' };
     }
     const mascotas = this.mascotasService
       .getMascotas()
       .find((m) => m.id === id);
     if (!mascotas) {
-      return 'No se encontro mascota';
+      return { mensaje: 'No se encontro mascota' };
     }
     if (informe.diagnostico) mascotas.diagnostico.push(...informe.diagnostico);
     if (informe.vacunas) mascotas.vacunas.push(...informe.vacunas);
     if (informe.tratamientos)
       mascotas.tratamientos.push(...informe.tratamientos);
 
-    return `Se agrego al historial de ${mascotas.nombre}`;
+    return {
+      mensaje: `Se agregaron los informes al historial de ${mascotas.nombre}`,
+    };
   }
   getMascotasChequeoAnual() {
-    const mascota = this.mascotasService.getMascotas();
+    const mascotas = this.mascotasService.getMascotas();
     const resultado: any[] = [];
-    for (let i = 0; i < mascota.length; i++) {
-      for (let j = 0; j < mascota[i].diagnostico.length; j++) {
-        if (mascota[i].diagnostico[j].descripcion === 'Revision anual') {
-          resultado.push(mascota[i]);
+    for (const mascota of mascotas) {
+      let tieneRevision = false;
+
+      for (const diag of mascota.diagnostico) {
+        if (diag.descripcion === 'Revision Anual') {
+          tieneRevision = true;
           break;
         }
       }
+
+      if (!tieneRevision) {
+        resultado.push(mascota);
+      }
     }
+
+    return {
+      mensaje: 'Mascotas que necesitan revisión anual',
+      mascotas: resultado,
+    };
   }
 }
